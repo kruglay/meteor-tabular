@@ -89,7 +89,7 @@ Template.tabular.onRendered(function () {
 
       // Update skip
       template.tabular.skip.set(data.start);
-      Session.set('Tabular.LastSkip', data.start);
+      sessionStorage.setItem('Tabular.LastSkip', data.start);
 
       // Update limit
       var options = template.tabular.options.get();
@@ -354,7 +354,7 @@ Template.tabular.onRendered(function () {
     // same page selected after a hot code push.
     if (c.firstRun && !('displayStart' in options)) {
       options.displayStart = Tracker.nonreactive(function () {
-        return Session.get('Tabular.LastSkip');
+        return sessionStorage.getItem('Tabular.LastSkip');
       });
     }
 
@@ -473,7 +473,7 @@ Template.tabular.onRendered(function () {
 
 Template.tabular.onDestroyed(function () {
   // Clear last skip tracking
-  Session.set('Tabular.LastSkip', 0);
+  sessionStorage.setItem('Tabular.LastSkip', 0);
   // Run a user-provided onUnload function
   if (this.tabular &&
       this.tabular.tableDef &&
